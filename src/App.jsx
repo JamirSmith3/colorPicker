@@ -1,15 +1,44 @@
-// Write your Color component here
+import { useState } from 'react'
 
-const App = () => {
+const Color = ({ color, selectedColor, setSelectedColor }) => {
+  const classes = `${color} ${selectedColor === color ? 'selected' : ''}`.trim()
   return (
-    <div id="container">
+    <div
+      className={classes}
+      onClick={() => setSelectedColor(color)}
+      role="button"
+      aria-label={`Select ${color}`}
+    />
+  )
+}
+
+export default function Picker() {
+  const [selectedColor, setSelectedColor] = useState('')
+
+  return (
+    <>
       <div id="navbar">
         <div>Currently selected: </div>
-        <div className="red">red</div>
+        <div className={selectedColor}>{selectedColor || 'none'}</div>
       </div>
-      <div id="colors-list">{/* colors go here */}</div>
-    </div>
-  );
-};
 
-export default App;
+      <div id="colors-list">
+        <Color
+          color="yellow"
+          selectedColor={selectedColor}
+          setSelectedColor={setSelectedColor}
+        />
+        <Color
+          color="green"
+          selectedColor={selectedColor}
+          setSelectedColor={setSelectedColor}
+        />
+        <Color
+          color="black"
+          selectedColor={selectedColor}
+          setSelectedColor={setSelectedColor}
+        />
+      </div>
+    </>
+  )
+}
